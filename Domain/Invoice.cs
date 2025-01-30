@@ -5,14 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain
-{  
-    public class Invoice() 
+{
+    public class Invoice
     {
         public int InvoiceId { get; set; }
-        public int CostumerID { get; set; }
-        public virtual Costumer Costumer { get; set; }
 
-        public List<Product> Invoices { get; set; } = new List<Product>();
+        public int CustomerId { get; set; } // Foreign key to Customer
+        public virtual Customer Customer { get; set; } // Correctly spelled navigation property
+
+        public DateTime OrderDate { get; set; }
+        public DateTime? OrderShippedDate { get; set; }
+
+        public List<InvoiceProduct> InvoiceProducts { get; set; } = new List<InvoiceProduct>();
     }
-    
+
+
 }

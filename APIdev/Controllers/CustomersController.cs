@@ -12,34 +12,34 @@ namespace APIdev.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CostumersController : ControllerBase
+    public class CustomersController : ControllerBase
     {
-        private readonly CostumerContext _context;
+        private readonly CustomerContext _customersContext;
 
-        public CostumersController(CostumerContext context)
+        public CustomersController(CustomerContext customersContext)
         {
-            _context = context;
+            _customersContext = customersContext;
         }
 
         // GET: api/Costumers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Costumer>>> GetCostumers()
+        public async Task<ActionResult<IEnumerable<Customer>>> GetCostumers()
         {
-            return await _context.Costumers.ToListAsync();
+            return await _customersContext.Costumers.ToListAsync();
         }
 
         // GET: api/costumers/all
         [HttpGet("GetAll")]
         public IActionResult getAllCostumers()
         {
-            return Ok(_context.Costumers);
+            return Ok(_customersContext.Costumers);
         }
 
         // GET: api/Costumers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Costumer>> GetCostumer(int id)
+        public async Task<ActionResult<Customer>> GetCostumer(int id)
         {
-            var costumer = await _context.Costumers.FindAsync(id);
+            var costumer = await _customersContext.Costumers.FindAsync(id);
 
             if (costumer == null)
             {
@@ -52,18 +52,18 @@ namespace APIdev.Controllers
         // PUT: api/Costumers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCostumer(int id, Costumer costumer)
+        public async Task<IActionResult> PutCostumer(int id, Customer costumer)
         {
-            if (id != costumer.CostumerID)
+            if (id != costumer.CustomerId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(costumer).State = EntityState.Modified;
+            _customersContext.Entry(costumer).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _customersContext.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -83,33 +83,33 @@ namespace APIdev.Controllers
         // POST: api/Costumers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Costumer>> PostCostumer(Costumer costumer)
+        public async Task<ActionResult<Customer>> PostCostumer(Customer costumer)
         {
-            _context.Costumers.Add(costumer);
-            await _context.SaveChangesAsync();
+            _customersContext.Costumers.Add(costumer);
+            await _customersContext.SaveChangesAsync();
 
-            return CreatedAtAction("GetCostumer", new { id = costumer.CostumerID }, costumer);
+            return CreatedAtAction("GetCostumer", new { id = costumer.CustomerId }, costumer);
         }
 
         // DELETE: api/Costumers/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCostumer(int id)
         {
-            var costumer = await _context.Costumers.FindAsync(id);
+            var costumer = await _customersContext.Costumers.FindAsync(id);
             if (costumer == null)
             {
                 return NotFound();
             }
 
-            _context.Costumers.Remove(costumer);
-            await _context.SaveChangesAsync();
+            _customersContext.Costumers.Remove(costumer);
+            await _customersContext.SaveChangesAsync();
 
             return NoContent();
         }
 
         private bool CostumerExists(int id)
         {
-            return _context.Costumers.Any(e => e.CostumerID == id);
+            return _customersContext.Costumers.Any(e => e.CustomerId == id);
         }
     }
 }

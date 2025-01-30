@@ -1,11 +1,17 @@
-﻿namespace Domain;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class Costumer
+namespace Domain;
+
+public class Customer
 {
-    public int CostumerID { get; set; }
+    public int CustomerId { get; set; }
+
+    [MaxLength(60)]
     public string? FirstName { get; set; }
+
     public string? LastName { get; set; }
 
     public List<Invoice> Invoices { get; set; } = new List<Invoice>();
 }
+
 
